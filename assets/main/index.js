@@ -1,21 +1,28 @@
 System.register("chunks:///_virtual/Background-001.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc'], function (exports) {
-  var _inheritsLoose, cclegacy, _decorator, Component;
+  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, cclegacy, _decorator, Node, Component;
 
   return {
     setters: [function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
       _inheritsLoose = module.inheritsLoose;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _assertThisInitialized = module.assertThisInitialized;
     }, function (module) {
       cclegacy = module.cclegacy;
       _decorator = module._decorator;
+      Node = module.Node;
       Component = module.Component;
     }],
     execute: function () {
-      var _dec, _class;
+      var _dec, _dec2, _class, _class2, _descriptor;
 
       cclegacy._RF.push({}, "fc8a7O0lRxHeLKGBeiPyErs", "Background-001", undefined);
 
-      var ccclass = _decorator.ccclass;
-      var Background = exports('Background', (_dec = ccclass('Background'), _dec(_class = /*#__PURE__*/function (_Component) {
+      var ccclass = _decorator.ccclass,
+          property = _decorator.property;
+      var Background = exports('Background', (_dec = ccclass('Background'), _dec2 = property({
+        type: Node
+      }), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
         _inheritsLoose(Background, _Component);
 
         function Background() {
@@ -26,39 +33,33 @@ System.register("chunks:///_virtual/Background-001.ts", ['./rollupPluginModLoBab
           }
 
           _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-          _this.currentSpeed = 30; // Initial speed
 
-          _this.movingRight = true;
+          _initializerDefineProperty(_this, "gameStartSprite", _descriptor, _assertThisInitialized(_this));
+
+          _this.currentSpeed = 10;
           return _this;
         }
 
-        var _proto = Background.prototype;
+        var _proto = Background.prototype; // Initial speed
 
         _proto.update = function update(deltaTime) {
-          var position = this.node.getPosition(); // Move diagonally to the right
+          var position = this.node.getPosition();
+          position.y -= this.currentSpeed * deltaTime * 1;
 
-          if (this.movingRight) {
-            position.x += this.currentSpeed * deltaTime * 0.1;
-            position.y += this.currentSpeed * deltaTime * 0.1;
-            this.node.setPosition(position); // Check if reached edge, then switch direction
+          if (position.y <= -2400) {
+            position.y += 512;
+          }
 
-            if (position.x >= 10) {
-              this.movingRight = false;
-            }
-          } // Move diagonally to the left
-          else {
-              position.x -= this.currentSpeed * deltaTime * 0.1;
-              position.y -= this.currentSpeed * deltaTime * 0.1;
-              this.node.setPosition(position); // Check if reached edge, then switch direction
-
-              if (position.x <= -10) {
-                this.movingRight = true;
-              }
-            }
+          this.node.setPosition(position);
         };
 
         return Background;
-      }(Component)) || _class));
+      }(Component), _descriptor = _applyDecoratedDescriptor(_class2.prototype, "gameStartSprite", [_dec2], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: null
+      }), _class2)) || _class));
 
       cclegacy._RF.pop();
     }
@@ -111,6 +112,7 @@ System.register("chunks:///_virtual/Background.ts", ['./rollupPluginModLoBabelHe
         _proto.update = function update(deltaTime) {
           var position = this.node.getPosition();
           position.x -= this.currentSpeed * deltaTime * 0.1;
+          position.y -= 10 * deltaTime * 1;
 
           if (position.x <= -288) {
             position.x += 288;
@@ -174,115 +176,89 @@ System.register("chunks:///_virtual/Bird.ts", ['./rollupPluginModLoBabelHelpers.
 });
 
 System.register("chunks:///_virtual/BirdMovement.ts", ['./rollupPluginModLoBabelHelpers.js', 'cc'], function (exports) {
-  var _applyDecoratedDescriptor, _inheritsLoose, _initializerDefineProperty, _assertThisInitialized, cclegacy, _decorator, Node, input, Input, Vec3, Component;
+  var _inheritsLoose, cclegacy, _decorator, Input, Vec2, Component;
 
   return {
     setters: [function (module) {
-      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
       _inheritsLoose = module.inheritsLoose;
-      _initializerDefineProperty = module.initializerDefineProperty;
-      _assertThisInitialized = module.assertThisInitialized;
     }, function (module) {
       cclegacy = module.cclegacy;
       _decorator = module._decorator;
-      Node = module.Node;
-      input = module.input;
       Input = module.Input;
-      Vec3 = module.Vec3;
+      Vec2 = module.Vec2;
       Component = module.Component;
     }],
     execute: function () {
-      var _dec, _dec2, _dec3, _class, _class2, _descriptor, _descriptor2;
+      var _dec, _class;
 
       cclegacy._RF.push({}, "94295GNAK1L7reFOnejfyq4", "BirdMovement", undefined);
 
       var ccclass = _decorator.ccclass,
           property = _decorator.property;
-      var BirdMovement = exports('BirdMovement', (_dec = ccclass('BirdMovement'), _dec2 = property({
-        type: Node
-      }), _dec3 = property({
-        type: Node
-      }), _dec(_class = (_class2 = /*#__PURE__*/function (_Component) {
+      var BirdMovement = exports('BirdMovement', (_dec = ccclass('BirdMovement'), _dec(_class = /*#__PURE__*/function (_Component) {
         _inheritsLoose(BirdMovement, _Component);
 
         function BirdMovement() {
-          var _this;
-
-          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-          }
-
-          _this = _Component.call.apply(_Component, [this].concat(args)) || this;
-
-          _initializerDefineProperty(_this, "buttonLeft", _descriptor, _assertThisInitialized(_this));
-
-          _initializerDefineProperty(_this, "buttonRight", _descriptor2, _assertThisInitialized(_this));
-
-          _this.minX = -120; // Minimum X position
-
-          _this.maxX = 120;
-          return _this;
+          return _Component.apply(this, arguments) || this;
         }
 
-        var _proto = BirdMovement.prototype; // Maximum X position
+        var _proto = BirdMovement.prototype;
 
-        _proto.onLoad = function onLoad() {
-          input.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
-          this.buttonLeft.on(Node.EventType.TOUCH_START, this.GoLeftStart, this);
-          this.buttonLeft.on(Node.EventType.TOUCH_END, this.GoLeftEnd, this);
-          this.buttonRight.on(Node.EventType.TOUCH_START, this.GoRightStart, this);
-          this.buttonRight.on(Node.EventType.TOUCH_END, this.GoRightEnd, this);
+        _proto.start = function start() {
+          this.node.on(Input.EventType.TOUCH_START, this.onTouchStart, this);
+          this.node.on(Input.EventType.TOUCH_MOVE, this.onTouchStart, this);
         };
 
-        _proto.onTouchMove = function onTouchMove(event) {
-          var deltaX = event.getLocation().x - 150; // Clamp newX within the specified range
-          // deltaX = Math.max(this.minX, Math.min(this.maxX, deltaX));
-
-          this.node.setPosition(new Vec3(deltaX, this.node.getPosition().y, 0));
-        };
-
-        _proto.GoLeftStart = function GoLeftStart(event) {
-          var position = this.node.getPosition();
-
-          if (position.x > this.minX) {
-            position.x -= 15;
-            this.node.setPosition(position);
-          }
-
-          this.buttonLeft.setScale(1.2, 1.2, 1);
-        };
-
-        _proto.GoLeftEnd = function GoLeftEnd(event) {
-          this.buttonLeft.setScale(1, 1, 1);
-        };
-
-        _proto.GoRightStart = function GoRightStart(event) {
-          var position = this.node.getPosition();
-
-          if (position.x < this.maxX) {
-            position.x += 15;
-            this.node.setPosition(position);
-          }
-
-          this.buttonRight.setScale(1.2, 1.2, 1);
-        };
-
-        _proto.GoRightEnd = function GoRightEnd(event) {
-          this.buttonRight.setScale(1, 1, 1);
+        _proto.onTouchStart = function onTouchStart(event) {
+          var positionTouch = new Vec2();
+          var posisiburung = this.node.getPosition();
+          positionTouch = event.getUILocation(positionTouch);
+          this.node.setWorldPosition(positionTouch.x, 152, 0);
         };
 
         return BirdMovement;
-      }(Component), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "buttonLeft", [_dec2], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: null
-      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "buttonRight", [_dec3], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: null
-      })), _class2)) || _class));
+      }(Component)) || _class)); // @property({type: Node})
+      // private buttonLeft: Node;
+      // @property({type: Node})
+      // private buttonRight: Node;
+      // private minX: number = -120; // Minimum X position
+      // private maxX: number = 120;  // Maximum X position
+      //     onLoad() {
+      //         input.on(Input.EventType.TOUCH_MOVE, this.onTouchMove, this);
+      //         this.buttonLeft.on(Node.EventType.TOUCH_START, this.GoLeftStart, this);
+      //         this.buttonLeft.on(Node.EventType.TOUCH_END, this.GoLeftEnd, this);
+      //         this.buttonRight.on(Node.EventType.TOUCH_START, this.GoRightStart, this);
+      //         this.buttonRight.on(Node.EventType.TOUCH_END, this.GoRightEnd, this);
+      //     }
+      //     private onTouchMove(event: EventTouch) {
+      //         let deltaX = event.getLocation().x-150;
+      //         // Clamp newX within the specified range
+      //         // deltaX = Math.max(this.minX, Math.min(this.maxX, deltaX));
+      //         this.node.setPosition(new Vec3(deltaX, this.node.getPosition().y, 0));
+      //     }
+      //     GoLeftStart(event: EventTouch){
+      //         let position = this.node.getPosition();
+      //         if(position.x>this.minX){
+      //             position.x -= 15;
+      //             this.node.setPosition(position);
+      //         }
+      //         this.buttonLeft.setScale(1.2,1.2,1);
+      //     }
+      //     GoLeftEnd(event: EventTouch){
+      //         this.buttonLeft.setScale(1,1,1);
+      //     }
+      //     GoRightStart(event: EventTouch){
+      //         let position = this.node.getPosition();
+      //         if(position.x<this.maxX){
+      //             position.x += 15;
+      //             this.node.setPosition(position);
+      //         }
+      //         this.buttonRight.setScale(1.2,1.2,1);
+      //     }
+      //     GoRightEnd(event: EventTouch){
+      //         this.buttonRight.setScale(1,1,1);
+      //     }
+      // }
 
       cclegacy._RF.pop();
     }
@@ -706,12 +682,13 @@ System.register("chunks:///_virtual/GameLogic.ts", ['./rollupPluginModLoBabelHel
           _this.pos2 = false;
           _this.pos3 = false;
           _this.pos4 = false;
+          _this.pos5 = false;
           _this.gameover = false;
           _this.gameStart = false;
           _this.gameRestart = false;
           _this.pipaNodes = [];
           _this.currentTime = 0;
-          _this.currentSpeed = 200; // Initial speed
+          _this.currentSpeed = 250; // Initial speed
 
           _this.temp = 3;
           _this.gravity = 0.2;
@@ -730,17 +707,16 @@ System.register("chunks:///_virtual/GameLogic.ts", ['./rollupPluginModLoBabelHel
           this.tryAgainSprite.on(Node.EventType.TOUCH_START, this.restartStart, this);
           this.tryAgainSprite.on(Node.EventType.TOUCH_END, this.restart, this); // Instantiate the prefab three times
 
-          for (var i = 0; i < 3; i++) {
+          for (var i = 0; i < 4; i++) {
             var pipaNode = instantiate(this.prefabPipa);
             var pipaPosition = pipaNode.getPosition();
-            pipaNode.setPosition(pipaPosition);
+            pipaNode.setPosition(this.getRandomXPosition(), pipaNode.getPosition().y, 0);
             pipaNode.setParent(this.node.parent);
-            pipaNode.setSiblingIndex(-3);
             this.pipaNodes.push(pipaNode);
           }
 
           var gameoverPosition = this.gameOverSprite.getPosition();
-          gameoverPosition.y = -190;
+          gameoverPosition.y = -290;
           this.gameOverSprite.setPosition(gameoverPosition);
           this.bloop.active = false;
         };
@@ -755,11 +731,9 @@ System.register("chunks:///_virtual/GameLogic.ts", ['./rollupPluginModLoBabelHel
           if (this.temp === 0) {
             this.currentSpeed = (this.currentSpeed - 15) * 2;
             this.temp = -5;
-          }
-
-          console.log(this.currentTime);
-          console.log(this.currentSpeed); //Game Logic
+          } //Game Logic
           //Check if the game is started (start when screen get pressed!)
+
 
           if (this.gameStart) {
             this.gameStartSprite.active = false; //When gameover
@@ -774,7 +748,7 @@ System.register("chunks:///_virtual/GameLogic.ts", ['./rollupPluginModLoBabelHel
                 var birdPosition = _this2.nodeBird.getPosition();
 
                 _this2.deadJump -= _this2.gravity;
-                birdPosition.y += _this2.deadJump;
+                birdPosition.y += _this2.deadJump * 1.5;
                 birdPosition.x -= 1;
 
                 _this2.nodeBird.setPosition(birdPosition);
@@ -797,12 +771,12 @@ System.register("chunks:///_virtual/GameLogic.ts", ['./rollupPluginModLoBabelHel
                 var pipaPosition = pipaNode.getPosition();
 
                 if (pipaPosition.y > -100) {
-                  pipaPosition.y -= 0.5;
+                  pipaPosition.y -= 2;
                   pipaNode.setPosition(pipaPosition);
                 } else {
-                  pipaPosition.y -= _this2.currentSpeed * deltaTime;
+                  pipaPosition.y -= _this2.currentSpeed * deltaTime * 2;
 
-                  if (pipaPosition.y <= -550) {
+                  if (pipaPosition.y <= -650) {
                     pipaPosition.y = 0;
                     pipaPosition.x = _this2.getRandomXPosition(); // Set random X position
 
@@ -815,12 +789,12 @@ System.register("chunks:///_virtual/GameLogic.ts", ['./rollupPluginModLoBabelHel
               var scorePosition = this.ScoringLine.getPosition();
 
               if (scorePosition.y > -100) {
-                scorePosition.y -= 0.5;
+                scorePosition.y -= 2;
                 this.ScoringLine.setPosition(scorePosition);
               } else {
-                scorePosition.y -= this.currentSpeed * deltaTime;
+                scorePosition.y -= this.currentSpeed * deltaTime * 2;
 
-                if (scorePosition.y <= -550) {
+                if (scorePosition.y <= -650) {
                   scorePosition.y = 0;
                   this.ScoringLine.setPosition(scorePosition);
                   this.incrementScore();
@@ -847,38 +821,46 @@ System.register("chunks:///_virtual/GameLogic.ts", ['./rollupPluginModLoBabelHel
         };
 
         _proto.getRandomXPosition = function getRandomXPosition() {
-          var positions = [-210, -140, -70, 0];
+          var positions = [-228, -171, -114, -57, 0]; // Removed 0 from the positions array
+
           var index = Math.floor(Math.random() * positions.length); // Check if the position has been used before
 
-          while (positions[index] === -210 && this.pos1 || positions[index] === -140 && this.pos2 || positions[index] === -70 && this.pos3 || positions[index] === 0 && this.pos4) {
+          while (positions[index] === -228 && this.pos1 || positions[index] === -171 && this.pos2 || positions[index] === -114 && this.pos3 || positions[index] === -57 && this.pos4 || positions[index] === 0 && this.pos5) {
             index = Math.floor(Math.random() * positions.length);
+            console.log("Recalculated Index:", index);
           } // Mark the position as used
 
 
           switch (positions[index]) {
-            case -210:
+            case -228:
               this.pos1 = true;
               break;
 
-            case -140:
+            case -171:
               this.pos2 = true;
               break;
 
-            case -70:
+            case -114:
               this.pos3 = true;
               break;
 
-            case 0:
+            case -57:
               this.pos4 = true;
+              break;
+
+            case 0:
+              this.pos5 = true;
               break;
           } // Reset all positions if all have been used
 
 
           if (this.pos1 && this.pos2 && this.pos3 && this.pos4) {
+            console.log("Resetting Flags");
             this.pos1 = false;
             this.pos2 = false;
             this.pos3 = false;
             this.pos4 = false;
+            this.pos5 = false;
           }
 
           return positions[index];
